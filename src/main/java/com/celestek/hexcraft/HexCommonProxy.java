@@ -36,10 +36,10 @@ public class HexCommonProxy {
     }
 
     // TODO: chunkloader
-    private static void increaseChunkCap() {
+/*    private static void increaseChunkCap() {
         Configuration cfg = ForgeChunkManager.getConfig();
         Property modTC = cfg.get(HexCraft.MODID, "maximumTicketCount", 1000);
         Property modCPT = cfg.get(HexCraft.MODID, "maximumChunksPerTicket", 2000);
         cfg.save();
-    }
+    }*/
 }

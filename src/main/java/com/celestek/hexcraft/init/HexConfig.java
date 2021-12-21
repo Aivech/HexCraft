@@ -1,7 +1,10 @@
 package com.celestek.hexcraft.init;
 
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.common.config.Configuration;
+import com.celestek.hexcraft.HexCraft;
+import com.celestek.hexcraft.config.ConfigFile;
+import net.fabricmc.loader.api.FabricLoader;
+
+import java.nio.file.Path;
 
 public class HexConfig {
 
@@ -392,23 +395,23 @@ public class HexConfig {
     /**
      * Initializes all block and adds them to GameRegistry.
      */
-    public static void initializeConfig(FMLPreInitializationEvent event) {
-        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+    public static void initializeConfig() {
+        ConfigFile config = new ConfigFile(Path.of(FabricLoader.getInstance().getConfigDir().toString(), HexCraft.MODNAME+".toml"));
         config.load();
 
         // General
-        config.setCategoryComment(Configuration.CATEGORY_GENERAL, "General configuration for different machines and details of the mod.");
-        cfgGeneralNetworkDebug = config.getBoolean("HEX Energy Network debugging", Configuration.CATEGORY_GENERAL, cfgGeneralNetworkDebug, "If set to true, will output the HEX Energy Network connections between machines to console\nupon scanning.\n");
-        cfgGeneralVerboseNetworkDebug = config.getBoolean("HEX Energy Network debugging (verbose)", Configuration.CATEGORY_GENERAL, cfgGeneralVerboseNetworkDebug, "If set to true, will output extremely detailed path of machine scanning. HEX Energy Network\ndebugging needs to be enabled.\n");
-        cfgGeneralMachineNetworkDebug = config.getBoolean("HEX Energy Network debugging (machines)", Configuration.CATEGORY_GENERAL, cfgGeneralMachineNetworkDebug, "If set to true, will output details about machine communication. Will get very spammy while\nenergy sources are being drained. HEX Energy Network debugging needs to be enabled.\n");
-        cfgGeneralPylonRange = config.getInt("Energy Pylon link range", Configuration.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.\n");
-        cfgGeneralUseAchievements = config.getBoolean("Use achievements", Configuration.CATEGORY_GENERAL, cfgGeneralUseAchievements, "If set to true, HEXCraft will use an achievement system.\n");
-        cfgFurnaceEnable = config.getBoolean("Enable Hexorium Furnace", Configuration.CATEGORY_GENERAL, cfgFurnaceEnable, "Enables the Hexorium Furnace block.\n");
-        cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.\n");
-        cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all\nentities has to be enabled first.\n");
-        cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", Configuration.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.\n");
-        cfgGeneralGlowstoneLightLevel = config.getInt("Glowstone Light Level", Configuration.CATEGORY_GENERAL, cfgGeneralGlowstoneLightLevel, 0, 15, "The light level which Mini Energized Hexorium Blocks and Energized Hexorium Monoliths will emit when Glowstone is added to them.\n");
-        cfgGeneralFlickerFix = config.getFloat("Flicker Fix", Configuration.CATEGORY_GENERAL, cfgGeneralFlickerFix, 0.000F, 0.010F, "While the rendering of the mod should pose no problems, certain mods which modify the rendering may break it and cause flickering of the textures.\nThis value introduces a slight offset to the inner glowing block texture to compensate. A very low value like 0.005 is suggested.\n");
+        config.setCategoryComment(ConfigFile.CATEGORY_GENERAL, "General configuration for different machines and details of the mod.");
+        cfgGeneralNetworkDebug = config.getBoolean("HEX Energy Network debugging", ConfigFile.CATEGORY_GENERAL, cfgGeneralNetworkDebug, "If set to true, will output the HEX Energy Network connections between machines to console\nupon scanning.\n");
+        cfgGeneralVerboseNetworkDebug = config.getBoolean("HEX Energy Network debugging (verbose)", ConfigFile.CATEGORY_GENERAL, cfgGeneralVerboseNetworkDebug, "If set to true, will output extremely detailed path of machine scanning. HEX Energy Network\ndebugging needs to be enabled.\n");
+        cfgGeneralMachineNetworkDebug = config.getBoolean("HEX Energy Network debugging (machines)", ConfigFile.CATEGORY_GENERAL, cfgGeneralMachineNetworkDebug, "If set to true, will output details about machine communication. Will get very spammy while\nenergy sources are being drained. HEX Energy Network debugging needs to be enabled.\n");
+        cfgGeneralPylonRange = config.getInt("Energy Pylon link range", ConfigFile.CATEGORY_GENERAL, cfgGeneralPylonRange, 2, 64, "The maximum range at which Energy Pylong can be linked.\n");
+        cfgGeneralUseAchievements = config.getBoolean("Use achievements", ConfigFile.CATEGORY_GENERAL, cfgGeneralUseAchievements, "If set to true, HEXCraft will use an achievement system.\n");
+        cfgFurnaceEnable = config.getBoolean("Enable Hexorium Furnace", ConfigFile.CATEGORY_GENERAL, cfgFurnaceEnable, "Enables the Hexorium Furnace block.\n");
+        cfgGeneralTransposerAttack = config.getBoolean("Molecular Transposer can attack", ConfigFile.CATEGORY_GENERAL, cfgGeneralTransposerAttack, "Determines if the Molecular Transposer can be used to attack entities.\n");
+        cfgGeneralTransposerAttackPlayers = config.getBoolean("Molecular Transposer can attack players", ConfigFile.CATEGORY_GENERAL, cfgGeneralTransposerAttackPlayers, "Determines if the Molecular Transposer can be used to attack players. Attacking of all\nentities has to be enabled first.\n");
+        cfgGeneralTransposerAttackDamage = config.getInt("Molecular Transposer attack damage", ConfigFile.CATEGORY_GENERAL, cfgGeneralTransposerAttackDamage, 1, 100, "The amount of damage Molecular Transposer deals, 2 equals 1 heart.\n");
+        cfgGeneralGlowstoneLightLevel = config.getInt("Glowstone Light Level", ConfigFile.CATEGORY_GENERAL, cfgGeneralGlowstoneLightLevel, 0, 15, "The light level which Mini Energized Hexorium Blocks and Energized Hexorium Monoliths will emit when Glowstone is added to them.\n");
+        cfgGeneralFlickerFix = config.getFloat("Flicker Fix", ConfigFile.CATEGORY_GENERAL, cfgGeneralFlickerFix, 0.000F, 0.010F, "While the rendering of the mod should pose no problems, certain mods which modify the rendering may break it and cause flickering of the textures.\nThis value introduces a slight offset to the inner glowing block texture to compensate. A very low value like 0.005 is suggested.\n");
 
 
         // General - Personal Teleportation Pad
