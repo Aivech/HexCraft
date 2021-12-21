@@ -7,38 +7,21 @@ import com.celestek.hexcraft.compat.HexOreDict;
 import com.celestek.hexcraft.init.*;
 import com.celestek.hexcraft.util.ChunkManager;
 import com.celestek.hexcraft.worldgen.HexWorldGen;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 public class HexCommonProxy {
-
-    /**
-     * Handles preInit.
-     */
-    public void preInit(FMLPreInitializationEvent e) {
+    // we fabric now
+    public static void initialize() {
         // Set up config.
-        HexConfig.initializeConfig(e);
+        HexConfig.initializeConfig();
         // Set up all ingame blocks, items and recipes.
         HexBlocks.initializeBlocks();
         HexItems.initializeItems();
         HexOreDict.registerOres();
         HexTileEntities.initializeTileEntities();
         // Set up chunk loading.
-        this.increaseChunkCap();
+        // TODO: Chunkloader
+        // increaseChunkCap();
         ChunkManager.instance.register();
-    }
-
-    /**
-     * Handles init.
-     */
-    public void init(FMLInitializationEvent e) {
         HexRecipes.initializeRecipes();
         GameRegistry.registerWorldGenerator(new HexWorldGen(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(HexCraft.instance, new HexGui());
@@ -52,14 +35,8 @@ public class HexCommonProxy {
             HexEU.initializeEU();
     }
 
-    /**
-     * Handles postInit.
-     */
-    public void postInit(FMLPostInitializationEvent e) {
-
-    }
-
-    private void increaseChunkCap() {
+    // TODO: chunkloader
+    private static void increaseChunkCap() {
         Configuration cfg = ForgeChunkManager.getConfig();
         Property modTC = cfg.get(HexCraft.MODID, "maximumTicketCount", 1000);
         Property modCPT = cfg.get(HexCraft.MODID, "maximumChunksPerTicket", 2000);
